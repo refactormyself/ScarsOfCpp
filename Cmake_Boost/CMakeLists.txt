@@ -17,7 +17,7 @@ project(BoostedProject VERSION 1.0
 # we want to 'make' or 'build' an executable a file out of a group of src files.
 # Guess what ?!
 
-add_executable(exec_of_BoostedPrj main.cpp head.h)
+#add_executable(exec_of_BoostedPrj main.cpp head.h) moved downstairs!
 
 # okay maybe we are creating another painful to use but effecient library
 # you only need to loose half of your brain cells trying to compile once you're done
@@ -30,7 +30,17 @@ add_executable(exec_of_BoostedPrj main.cpp head.h)
 #target_include_directories(exec_of_BoostedPrj PUBLIC include)
 
 
+set(Boost_USE_STATIC_LIBS OFF) #enable dynamic linking
 
+# search for unit_test_framework
+#find_package(Boost REQUIRED COMPONENTS unit_test_framework)
+find_package(Boost REQUIRED)
+include_directories(${Boost_INCLUDE_DIR})
 
+# create an executable target
+add_executable(exec_of_BoostedPrj main.cpp head.h)
+
+# link Boost libraries to the new target
+target_link_libraries(exec_of_BoostedPrj ${Boost_LIBRARIES})
 
 
